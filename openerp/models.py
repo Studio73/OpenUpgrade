@@ -2747,6 +2747,9 @@ class BaseModel(object):
             cr.commit()
 
         if stored_fields:
+            self._openupgrade_recompute_fields_blacklist += [
+                f.name for f in stored_fields]
+
             # trigger computation of new-style stored fields with a compute
             def func(cr):
                 fnames = [f.name for f in stored_fields]

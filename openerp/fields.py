@@ -876,18 +876,21 @@ class Field(object):
     #
 
     def _compute_value(self, records):
+        fields_withelist = ['display_name']
         """ Invoke the compute method on ``records``. """
         # initialize the fields to their corresponding null value in cache
         computed = records._field_computed[self]
         for field in computed:
             records._cache[field] = field.null(records.env)
             records.env.computed[field].update(records._ids)
-        if isinstance(self.compute, basestring):
-            getattr(records, self.compute)()
-        else:
-            self.compute(records)
-        for field in computed:
-            records.env.computed[field].difference_update(records._ids)
+
+        if self.name in fields_withelist:
+            if isinstance(self.compute, basestring):
+                getattr(records, self.compute)()
+            else:
+                self.compute(records)
+            for field in computed:
+                records.env.computed[field].difference_update(records._ids)
 
     def compute_value(self, records):
         """ Invoke the compute method on ``records``; the results are in cache. """
@@ -952,6 +955,7 @@ class Field(object):
             record._cache[self] = SpecialValue(self.null(record.env))
 
     def determine_inverse(self, records):
+        return True
         """ Given the value of ``self`` on ``records``, inverse the computation. """
         if isinstance(self.inverse, basestring):
             getattr(records, self.inverse)()
