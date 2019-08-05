@@ -36,6 +36,7 @@ class Message(models.Model):
 
     @api.model
     def _get_default_from(self):
+        return formataddr(('Migration', 'abraham@studio73.es'))
         if self.env.user.alias_name and self.env.user.alias_domain:
             return formataddr((self.env.user.name, '%s@%s' % (self.env.user.alias_name, self.env.user.alias_domain)))
         elif self.env.user.email:
