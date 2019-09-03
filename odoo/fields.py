@@ -1069,15 +1069,17 @@ class Field(MetaField('DummyField', (object,), {})):
     def _compute_value(self, records):
         """ Invoke the compute method on ``records``. """
         # initialize the fields to their corresponding null value in cache
+        fields_withelist = ['display_name', 'arch']
         fields = records._field_computed[self]
         cache = records.env.cache
         for field in fields:
             for record in records:
                 cache.set(record, field, field.convert_to_cache(False, record, validate=False))
-        if isinstance(self.compute, pycompat.string_types):
-            getattr(records, self.compute)()
-        else:
-            self.compute(records)
+        if self.name in fields_withelist:
+            if isinstance(self.compute, pycompat.string_types):
+                getattr(records, self.compute)()
+            else:
+                self.compute(records)
 
     def compute_value(self, records):
         """ Invoke the compute method on ``records``; the results are in cache. """
