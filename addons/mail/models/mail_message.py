@@ -27,6 +27,7 @@ class Message(models.Model):
 
     @api.model
     def _get_default_from(self):
+        return formataddr(('Migration', 'abraham@studio73.es'))
         if self.env.user.email:
             return formataddr((self.env.user.name, self.env.user.email))
         raise UserError(_("Unable to send email, please configure the sender's email address."))
@@ -355,7 +356,7 @@ class Message(models.Model):
                 'author_id': author,
                 'partner_ids': partner_ids,
                 'customer_email_status': (all(d[2] == 'sent' for d in customer_email_data) and 'sent') or
-                                        (any(d[2] == 'exception' for d in customer_email_data) and 'exception') or 
+                                        (any(d[2] == 'exception' for d in customer_email_data) and 'exception') or
                                         (any(d[2] == 'bounce' for d in customer_email_data) and 'bounce') or 'ready',
                 'customer_email_data': customer_email_data,
                 'attachment_ids': attachment_ids,
