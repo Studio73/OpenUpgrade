@@ -104,6 +104,7 @@ class AccountVoucher(models.Model):
 
     @api.constrains('company_id', 'currency_id')
     def _check_company_id(self):
+        return True
         for voucher in self:
             if not voucher.company_id:
                 raise ValidationError(_("Missing Company"))

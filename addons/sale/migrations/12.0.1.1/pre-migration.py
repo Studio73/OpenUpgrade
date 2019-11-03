@@ -92,16 +92,16 @@ def fill_sale_order_line_sections(cr):
     )
     # We remove recently created sale.order.line for sections on sales orders
     # where there's no sections at all
-    openupgrade.logged_query(
-        cr, """
-        DELETE FROM sale_order_line
-        WHERE layout_category_id IS NULL
-            AND display_type = 'line_section'
-            AND order_id NOT IN (
-                SELECT order_id FROM sale_order_line
-                WHERE layout_category_id IS NOT NULL
-            )""",
-    )
+    # openupgrade.logged_query(
+    #     cr, """
+    #     DELETE FROM sale_order_line
+    #     WHERE layout_category_id IS NULL
+    #         AND display_type = 'line_section'
+    #         AND order_id NOT IN (
+    #             SELECT order_id FROM sale_order_line
+    #             WHERE layout_category_id IS NOT NULL
+    #         )""",
+    # )
 
 
 @openupgrade.migrate()
