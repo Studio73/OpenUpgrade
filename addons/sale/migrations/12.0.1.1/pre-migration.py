@@ -45,6 +45,7 @@ def rename_sale_payment_config_parameters(cr, keys_spec):
 
 
 def fill_sale_order_line_sections(cr):
+    return
     """It's done here instead of post-migration to avoid
     possible new rows added in the migration"""
     cr.execute(

@@ -60,6 +60,7 @@ xmlid_renames = [
 
 
 def fill_account_invoice_line_sections(cr):
+    return
     """It's done here instead of post-migration to avoid
     possible new rows added in the migration (just in case)"""
     if not openupgrade.column_exists(
