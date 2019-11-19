@@ -876,7 +876,7 @@ class Field(object):
     #
 
     def _compute_value(self, records):
-        fields_withelist = ['display_name']
+        fields_withelist = ['display_name', 'decimal_places']
         """ Invoke the compute method on ``records``. """
         # initialize the fields to their corresponding null value in cache
         computed = records._field_computed[self]
